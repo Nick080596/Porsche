@@ -1,4 +1,4 @@
-package Oberflaeche;
+package src.Projekt;
 
 public class Oberflache {
 /*Das ist ein test, wenn ihr den gelesen habt, schreibt einen eigenen

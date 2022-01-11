@@ -1,4 +1,4 @@
-package src.Oberflaeche;
+package src.Projekt;
 
 public class Ticket {
 
