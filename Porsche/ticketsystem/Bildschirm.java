@@ -1,7 +1,6 @@
 package ticketsystem;
 
 import java.awt.BorderLayout; //Das hier ist in meinem Code, alles danach (bis nächstes Texfeld) nicht
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
