@@ -1,6 +1,6 @@
 package ticketsystem;
 
-import java.awt.BorderLayout; //Das hier ist in meinem Code, alles danach (bis nächstes Texfeld) nicht
+import java.awt.BorderLayout; 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -28,7 +28,7 @@ import java.awt.SystemColor;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
-// Bis hierhin.
+// hier sind alle impote aufgeführt
 
 public class Bildschirm extends JFrame {
 	private JLayeredPane Anzeigefenster;
