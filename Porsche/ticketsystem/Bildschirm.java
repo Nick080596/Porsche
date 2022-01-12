@@ -1,6 +1,6 @@
 package ticketsystem;
 
-import java.awt.BorderLayout; 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -28,7 +28,6 @@ import java.awt.SystemColor;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
-// hier sind alle impote aufgeführt
 
 public class Bildschirm extends JFrame {
 	private JLayeredPane Anzeigefenster;
@@ -52,6 +51,7 @@ public class Bildschirm extends JFrame {
 	public Kunde kunde;
 	private JTable table;
 	private JScrollPane scrollPane;
+	private JButton btnNewButton_5;
 
 	/**
 	 * Launch the application.
@@ -68,7 +68,6 @@ public class Bildschirm extends JFrame {
 			}
 		});
 	}
-	
 
 	/**
 	 * Create the frame.
@@ -134,27 +133,28 @@ public class Bildschirm extends JFrame {
 		comboBox.setBounds(71, 71, 196, 22);
 		panel_Kategorie.add(comboBox);
 		
-		JPanel panel_TicketBearbeiten = new JPanel();
-		Anzeigefenster.setLayer(panel_TicketBearbeiten, 5);
-		panel_TicketBearbeiten.setBackground(Color.WHITE);
-		Anzeigefenster.add(panel_TicketBearbeiten, "name_92370989658200");
-		panel_TicketBearbeiten.setLayout(null);
+		JPanel panel_KundeBearbeiten = new JPanel();
+		Anzeigefenster.setLayer(panel_KundeBearbeiten, 5);
+		panel_KundeBearbeiten.setBackground(Color.WHITE);
+		Anzeigefenster.add(panel_KundeBearbeiten, "name_92370989658200");
+		panel_KundeBearbeiten.setLayout(null);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(47, 63, 491, 274);
-		panel_TicketBearbeiten.add(scrollPane);
+		panel_KundeBearbeiten.add(scrollPane);
 		
 		table = new JTable();
+		table.setFont(new Font("Arial", Font.PLAIN, 11));
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
+				{1, null, null, "K2022_1"},
+				{2, null, null, "K2022_2"},
+				{3, null, null, null},
+				{4, null, null, null},
+				{5, null, null, null},
+				{6, null, null, null},
+				{7, null, null, null},
 				{null, null, null, null},
 				{null, null, null, null},
 				{null, null, null, null},
@@ -179,6 +179,15 @@ public class Bildschirm extends JFrame {
 			}
 		));
 		
+		btnNewButton_5 = new JButton("Speichern/Aktuallisieren");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_5.setBounds(345, 364, 227, 50);
+		panel_KundeBearbeiten.add(btnNewButton_5);
+		// LL Position des Button 5 zum Speichern der Bearbeitungstabelle
+				
 		
 		panel_Kunde = new JPanel();
 		panel_Kunde.setBackground(Color.WHITE);
@@ -299,6 +308,15 @@ public class Bildschirm extends JFrame {
 		contentPane.add(lblNewLabel_11);
 		
 		JButton btnNewButton_1_1 = new JButton("Kunde");
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Anzeigefenster.removeAll();
+				Anzeigefenster.add(panel_KundeBearbeiten);
+				Anzeigefenster.repaint();
+				Anzeigefenster.revalidate();}
+			// LL Verlinkung zur Unterseite mit Tablle Kunden
+				
+		});
 		btnNewButton_1_1.setBounds(10, 213, 89, 23);
 		contentPane.add(btnNewButton_1_1);
 		
