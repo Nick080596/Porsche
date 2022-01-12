@@ -1,6 +1,6 @@
 package ticketsystem;
 
-public class Leon {
+public class Leo {
 
 }
 // Test Kommentar Leo,versuch 2
