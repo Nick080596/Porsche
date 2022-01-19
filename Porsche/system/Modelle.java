@@ -1,4 +1,4 @@
-package ticketsystem;
+package system;
 
 import Ü2.Auto_Fuchs_Beschreibung;
 

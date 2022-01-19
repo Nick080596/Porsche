@@ -1,4 +1,4 @@
-package ticketsystem;
+package system;
 
 public class Ticket {
 
