@@ -3,10 +3,16 @@ package ticketsystem;
 public class Ticket {
 
 	int ticketnummer;
-	String name;
-	String kategorie;
+	string name;
+	string kategorie;
 
 	//Tickenummer automatisch erzeugen, immer weiter erstellen 
+	
+	//Erstellen von Ticketnummer gleichzeitig
+	
+	//Bei Kunde muss immer neuer Kunde angelegt werden, wenn nicht vorhanden
+	
+	//Arraylist = new Eintrag...
 	public Ticket(int ticketnummer) {
 		if (ticketnummer <= 0) {
 			System.exit(0);
