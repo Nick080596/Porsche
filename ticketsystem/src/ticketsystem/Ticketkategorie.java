@@ -2,16 +2,15 @@ package ticketsystem;
 
 public class Ticketkategorie {
 
-	String kategoryName;
+	private String kategoryName;
 	// Kategorie Attribut
 	
-	String getKategoryName() {
+	public String getKategoryName() {
 		return kategoryName;
 		// get Methode 
 }
 
-	void setKategoryName(String K) {
-		this.kategoryName = K;
-		// set Methode
+	public void setKategoryName(String kategoryName) {this.kategoryName = kategoryName; }
+		
 }
-	}
+	

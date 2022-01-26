@@ -29,6 +29,8 @@ import javax.swing.table.DefaultTableModel;
 
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
+
+import ticketsystem.io.KategoryWriter;
 import ticketsystem.io.TicketsWriter;
 import javax.swing.JList;
 
@@ -63,35 +65,17 @@ public class Bildschirm extends JFrame {
 	private JTextField textField;
 
 	//Ab heir Array fï¿½r Kategorie
-/*	Vector<Ticketkategorie> kategory = new Vector();
-	private JTextField textArea_KategorieName; 
-	
-	void TableAktuallisierer2 () {
-		Vector columnLabels new Vektor();
-		columnLabels.add(kategory);
-		
-		DefaultTableModel model = new DefaultTableModel();
-		model.setColumnIdentifiers(columnLabels);
-		table_Kategorie.setModel(model);
 
-		for (int i = 0; i < kategorie.size(); i++) {
-
-			model.addRow( new Object[] {
-					Kategorien.get(i)Kategorien;
-	});
-			table_Kategorie.setModel(model);*/
+	Vector<Ticketkategorie> kategory = new Vector();
+	private JTextField textField_1;; 	
 		
-	
-	
-	
-	// LL ab hier Array für Tickets 
+	// LL ab hier Array fï¿½r Tickets 
 	Vector<Ticket> tickets = new Vector(); // vektor ist eine Liste (die synchroniert ist) das Modell
 	private JComboBox comboBox_KategorieWÃ¤hlen;
 	private JTextField textField_Vorname;
 	private JTextField textField_KundenName;
 	private JTextField textField_Model;
 	private JLabel lblNewLabel_PorscheStartseite;
-	private JTextField textField_1;
 	private JButton btn_CSV_upload;
 	private JPanel panel_TicketBearbeiten;
 	private JLabel lblNewLabel_9;
@@ -128,7 +112,25 @@ public class Bildschirm extends JFrame {
 		});
 	}
 
-		void TableAktuallisierer () {
+	void updateKategoryTable () {
+		
+		Vector columnLabels = new Vector();
+		columnLabels.add("Kategorie");
+				
+		
+		DefaultTableModel model = new DefaultTableModel();
+		model.setColumnIdentifiers(columnLabels);
+		table_Kategorie.setModel(model);
+		
+		for (int i = 0; i< kategory.size(); i++) {
+			
+			model.addRow( new Object[] {
+				kategory.get(i).getKategoryName()
+			});
+			}
+		}
+	
+		void updateTicketTable () {
 //			DefaultTableModel model = (DefaultTableModel) table_Kunde.getModel();
 
 			Vector columnLabels = new Vector();
@@ -196,6 +198,13 @@ public class Bildschirm extends JFrame {
 		//comboBox_KategorieWï¿½hlen.removeAllItems();
 
 	}
+	
+	public void clearKategoryField() {
+		// LL Textfeld Kategorie leeren
+		textField_1.setText("");
+
+}
+	
 	public void showOverview(JPanel panel_TicketTabelle) {
 
 		// LL Festern zum ï¿½bersicht wechseln
@@ -205,6 +214,14 @@ public class Bildschirm extends JFrame {
 		Anzeigefenster.revalidate();
 
 	}
+	
+public void showOverview2(JPanel panel_KategorieBearbeiten) {
+		
+		Anzeigefenster.removeAll();
+		Anzeigefenster.add(panel_KategorieBearbeiten);
+		Anzeigefenster.repaint();
+		Anzeigefenster.revalidate();
+}
 
 	public Ticket createTicketFromUI() {
 		Ticket ticket = new Ticket();
@@ -216,9 +233,13 @@ public class Bildschirm extends JFrame {
 
 		return ticket;
 	}
-
-
-	
+	public Ticketkategorie createKategoryFromUI() {
+		Ticketkategorie kategory = new Ticketkategorie();
+		
+		kategory.setKategoryName(textField_1.getText());
+		
+		return kategory;
+	}
 	/**
 	 * Create the frame.
 	 */
@@ -352,7 +373,7 @@ public class Bildschirm extends JFrame {
 				int selectedRow  = table_Kunde.getSelectedRow();
 				if (selectedRow >= 0) {
 					tickets.remove(selectedRow);
-					TableAktuallisierer();
+					updateTicketTable();
 				}
 			}
 		});
@@ -361,7 +382,7 @@ public class Bildschirm extends JFrame {
 		btn_CSV_download.setBounds(408, 367, 167, 48);
 		btn_CSV_download.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TicketsWriter ticketWriter = new TicketsWriter("/Users/nj/Desktop/ticketsystem");
+				TicketsWriter ticketWriter = new TicketsWriter("/Users/nj/Desktop/Porsche.csv");
 				try {
 					ticketWriter.write(tickets);
 				} catch (IOException ex) {
@@ -460,7 +481,7 @@ public class Bildschirm extends JFrame {
 //				Anzeigefenster.repaint();
 //				Anzeigefenster.revalidate();
 				
-				TableAktuallisierer ();
+				updateTicketTable ();
 				// Zum Aktullisieren
 //				}
 //			}
@@ -598,7 +619,13 @@ public class Bildschirm extends JFrame {
 		btnNewButton_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
-				Kategroy.add(createKategoryFromUI());
+				kategory.add(createKategoryFromUI());
+				
+				clearKategoryField();
+				
+				
+				showOverview2(panel_KategorieBearbeiten);
+				updateKategoryTable ();
 			}
 		});
 		btnNewButton_6.setBounds(134, 180, 150, 32);
@@ -610,19 +637,29 @@ public class Bildschirm extends JFrame {
 
 		table_Kategorie = new JTable();
 		// Kategorie[] arrKategorie = new Kategorie [30];
-		table_Kategorie.setModel(
-				new DefaultTableModel(
-						new Object[][] { 
-							{ null },{ null }, { null }, { null }, { null }, { null }, { null }, { null },
-								{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-								{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
-								{ null }, { null }, { null }, { null }, { null }, { null }, },
-						new String[] { "Kategorien" }));
+	//	table_Kategorie.setModel(
+	//			new DefaultTableModel(
+	//					new Object[][] { 
+	//						{ null },{ null }, { null }, { null }, { null }, { null }, { null }, { null },
+	//							{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
+	//							{ null }, { null }, { null }, { null }, { null }, { null }, { null }, { null },
+	//							{ null }, { null }, { null }, { null }, { null }, { null }, },
+	//					new String[] { "Kategorien" }));
 		scrollPane_2.setViewportView(table_Kategorie);
 
 		btnNewButton_7 = new JButton("L\u00F6schen");
 		btnNewButton_7.setBounds(134, 266, 150, 32);
 		panel_KategorieBearbeiten.add(btnNewButton_7);
+	
+		btnNewButton_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow  = table_Kategorie.getSelectedRow();
+				if (selectedRow >= 0) {
+					kategory.remove(selectedRow);
+					updateKategoryTable();
+				}
+			}
+		});
 		
 		btnNewButton_8 = new JButton("Bearbeiten");
 		btnNewButton_8.setBounds(134, 223, 150, 32);
@@ -632,10 +669,22 @@ public class Bildschirm extends JFrame {
 		textField_1.setBackground(Color.GREEN);
 		textField_1.setBounds(39, 137, 245, 32);
 		panel_KategorieBearbeiten.add(textField_1);
-		textField_1.setColumns(10);
+		//textField_1.setColumns(10);
 		
 		btnNewButton_9 = new JButton("Als CSV speichern");
 		btnNewButton_9.setBounds(10, 375, 177, 39);
+		btnNewButton_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				KategoryWriter kategoryWriter = new KategoryWriter("/Users/nj/Desktop/Kategory.csv");
+				try {
+					kategoryWriter.write(kategory);
+				} catch (IOException ex) {
+
+					JOptionPane.showMessageDialog(null, ex.getMessage(),
+							"Es ist ein Fehler aufgetreten", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		panel_KategorieBearbeiten.add(btnNewButton_9);
 		
 		btnNewButton_10 = new JButton("CSV hochladen");

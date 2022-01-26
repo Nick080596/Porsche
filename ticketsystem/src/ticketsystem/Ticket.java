@@ -1,9 +1,9 @@
 package ticketsystem;
 
 public class Ticket {
-	String customerName;
+	private String customerName;
 	private String name;
-	String model;
+	private String model;
 	// LL Ticket Attribute
 	
 	
