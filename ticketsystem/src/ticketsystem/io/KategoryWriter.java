@@ -15,8 +15,8 @@ public class KategoryWriter extends CSVWriter{
  public void write(List<Ticketkategorie> kategory) throws IOException {
 	 open();
 	 //Schleife über alle Kategorien
-	 for(Ticketkategorie kategory : kategory) {
-		 write(kategory.getKategoryName());
+	 for(Ticketkategorie kategorie : kategory) {
+		 write(kategorie.getKategoryName());
 		 writeTab();
 	 }
 	 close();
